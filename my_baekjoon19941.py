@@ -16,6 +16,8 @@ count = 0
 for i in range(N):
     if tableList[i] == 'P':  # 사람이 발견되면
         # 사람의 범위 내에 있는 햄버거 탐색
+        # max(0, i - K) -> i-k 가 유효한 인덱스면 자동적으로 i-k 반환
+        # min(N, i + K + 1) -> i+K+1 이 유효한인덱스+1 이하이면 자동적으로 i+K+1 반환
         for j in range(max(0, i - K), min(N, i + K + 1)):
             if tableList[j] == 'H':  # 먹을 수 있는 햄버거 발견 시
                 tableList[j] = 'X'  # 먹은 햄버거 표시
