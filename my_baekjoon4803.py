@@ -47,8 +47,8 @@ def getTreeCount(n ,edges):
         if root not in roots:
             roots.append(root)
 
-    # print(f"roots : {roots} , len(roots)-1:{len(roots)-1} ->")
-    # print(f"( len(roots)-1 ) - cycleCount :{len(roots)-1 - cycleCount}\n")
+#    print(f"roots : {roots} , len(roots)-1:{len(roots)-1} ->")
+#    print(f"( len(roots)-1 ) - cycleCount :{len(roots)-1 - cycleCount}\n")
     return len(roots)-1 - cycleCount
 
 
@@ -69,7 +69,7 @@ def main():
             edges.append(edge)
         # print(f"edges:{edges}\n")
         res = getTreeCount(N, edges)
-        if (res > 3):
+        if (res > 1):
             print(f"Case {caseCount}: A forest of {res} trees.\n")
         elif(res == 1 ):
             print(f"Case {caseCount}: There is one tree.\n")
