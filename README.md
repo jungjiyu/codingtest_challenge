@@ -1,3 +1,2 @@
 # codingtest_challenge
-8th, 기본반A
-9th, 기본반B
+기본반A(8th), 기본반B(9th)
