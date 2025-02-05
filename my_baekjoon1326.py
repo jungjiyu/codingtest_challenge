@@ -1,64 +1,45 @@
-from sys import stdin,stdout
+from sys import stdin, stdout
 from collections import deque
 
 input = stdin.readline
 print = stdout.write
 
-N=0
-
-
-
-def bfs(a,b,graph):
-    global N
-    queue = deque()
-    visited=[False]*(N+1)
-    count=0
-    isFound=False
-
-    #스타트 대입
-    queue.append(a)
-    visited[a]=True
+def bfs(a, b, nodeValues):
+    N = len(nodeValues) - 1
+    queue = deque([a])
+    visited = [False] * (N + 1)
+    visited[a] = True
+    count = 0
 
     while queue:
-        curNode=queue.popleft()
-        count+=1
-        
-    return -1
+        size = len(queue)  # 현재 레벨의 노드 개수
+        for _ in range(size):  # 현재 레벨의 모든 노드 탐색
+            curNode = queue.popleft()
 
+            if curNode == b:  # 목표 지점 도달
+                return count
 
+            step = nodeValues[curNode]
+            for direction in [-1, 1]:  # 좌우 이동
+                nextNode = curNode + direction * step
+                while 1 <= nextNode <= N:  # 가능한 모든 점프 탐색
+                    if not visited[nextNode]:
+                        visited[nextNode] = True
+                        queue.append(nextNode)
+                    nextNode += direction * step  # 같은 배수로 계속 탐색
 
+        count += 1  # 한 번의 점프 완료 후 증가
 
-
-
-
-
-
-    return
+    return -1  # 목표 지점 도달 불가능
 
 def main():
-    global N
     N = int(input())
-    nodeValues = list(map(int,input().split()))
-    nodeValues.insert(0,0)
+    nodeValues = list(map(int, input().split()))
+    nodeValues.insert(0, 0)  # 인덱스 맞추기
+    a, b = map(int, input().split())
 
-    # 배수 관계로 간선 형성
-    graph=[[]] # 편의상 인덱스 0 은 비움
-    for i in range(1,N+1):
-        adjointNodes =[]
-        curNodeValue=nodeValues[i]
-        for k in range(1,N): # 1 ~ N-1
-            distance = curNodeValue*k
-            if i-distance >=1:
-                adjointNodes.append(i - distance)
-            if i + distance <=N:
-                adjointNodes.append(i + distance)
-        graph.append(adjointNodes)
-    print(f"graph:{graph}\n")
+    result = bfs(a, b, nodeValues)
+    print(f"{result}\n")
 
-
-
-
-
-
-if __name__ =="__main__":
+if __name__ == "__main__":
     main()
