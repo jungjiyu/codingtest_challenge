@@ -51,22 +51,28 @@ def bottmUp():
 
 # 재귀 통한 dp 구현
 memo=[0]*12 # 편의상 인덱스 0은 사용하지 않음
+# 기저상태 처리
+memo[1] = 1
+memo[2] = 2
+memo[3] = 4
 def topDown(n):
     global memo
 
-    #기저상태 처리
     if n==1:
+        print(f"    n == 1\n")
         return 1
 
     if n==2:
+        print(f"    n == 2\n")
         return 2
 
     if n==3:
+        print(f"    n == 3\n")
         return 4
 
     # memoization 활용
     # 메모된 적 있는 값이면 그 값을 바로 활용
-    if n in memo:
+    if memo[n] != 0 :
         return memo[n]
 
     # 메모된적 없으면 새로 구하기 및 기록
@@ -90,6 +96,7 @@ def main():
 
     # DP 시도 : 재귀 구현
     topDown(11)
+    print(f"memo:{memo}\n")
     for i in range(T):
         val=memo[ inputList[i] ]
         print(f"{val}\n")
