@@ -3,8 +3,8 @@ import sys
 input = sys.stdin.readline
 print = sys.stdout.write
 
-M,n = map(int,input().split())
-print(f"M,n:{M},{n}\n")
+M,n = map(int,input().strip().split())
+# print(f"M,n:{M},{n}\n")
 
 
 
@@ -27,21 +27,27 @@ def moveIfPossible(str_code , int_code):
             tmpX +=dx[curDirection]
             tmpY += dy[curDirection]
 
-        if (0<tmpX<M) and (0<tmpY<M):
+        if (0<=tmpX<=M) and (0<=tmpY<=M):
             curX=tmpX
             curY=tmpY
-            print(f"curY,curX updated : {curY},{curX}\n")
-            return True
+            # print(f"curX,curY updated : {curX},{curY}\n")
+            return  True
+
 
 
 
     elif str_code == "TURN":
-        for i in range( int(int_code) ):
-            curDirection = (curDirection+1)%4
-            print(f"curDirection updated : {curDirection}\n")
-        return True
+        if int_code == "0": # 반시계 방향
+            curDirection = (curDirection-1)%4
+            # print(f"curDirection updated : {curDirection}\n")
+            return True
 
-    print(f"index out of range keep goin\n")
+        elif int_code == "1": # 시계방향
+            curDirection = (curDirection+1)%4
+            # print(f"curDirection updated : {curDirection}\n")
+            return True
+
+    # print(f"index out of range \n")
     return False
 
 
@@ -50,12 +56,14 @@ def moveIfPossible(str_code , int_code):
 def main():
     for i in range(n):
         str_code , int_code= input().strip().split()
-        print(f"{str_code}, {int_code}\n")
-        moveIfPossible(str_code,int_code)
+        # print(f"{str_code}, {int_code}\n")
+        if not moveIfPossible(str_code,int_code):
+            print(f"-1\n")
+            return
 
-    if (0 < curX < M) and (0 < curY < M):
-        print(f"{curX} {curY}\n")
-    print(f"-1\n")
+
+    print(f"{curX} {curY}\n")
+
 
 
    
